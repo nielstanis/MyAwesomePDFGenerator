@@ -38,6 +38,10 @@ jobs:
       # You may pin to the exact commit or the version.
       # uses: sigstore/cosign-installer@ced07f21fb1da67979f539bbc6304c16c0677e76
       uses: sigstore/cosign-installer@v2.7.0
+    - name: Sign the package
+      env: 
+        COSIGN_EXPERIMENTAL: "true"
+      run: cosign sign-blob package/MyAwesomePDFGenerator.1.0.0.nupkg
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.0
       with:
