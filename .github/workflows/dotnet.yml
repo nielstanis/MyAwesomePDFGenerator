@@ -41,7 +41,7 @@ jobs:
     - name: Sign the package
       env: 
         COSIGN_EXPERIMENTAL: "true"
-      run: cosign sign-blob package/MyAwesomePDFGenerator.1.0.0.nupkg
+      run: cosign sign-blob pack/MyAwesomePDFGenerator.1.0.0.nupkg
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.0
       with:
