@@ -13,6 +13,8 @@ jobs:
     permissions:
       packages: write
       id-token: write
+    outputs:
+      hashes: ${{ steps.hash.outputs.hashes }}
 
     steps:
     - uses: actions/checkout@v3
