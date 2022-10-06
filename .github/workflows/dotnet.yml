@@ -52,14 +52,24 @@ jobs:
         # sha256sum generates sha256 hash for all artifacts.
         # base64 -w0 encodes to base64 and outputs on a single line.
         echo "::set-output name=hashes::$(sha256sum pack/MyAwesomePDFGenerator.1.0.0.nupkg pack/bom.json | base64 -w0)"
-#    - name: provenance
-#     uses: slsa-framework/slsa-github-generator/.github/workflows/generator_generic_slsa3.yml@v1.2.0
-#      with:
-#        base64-subjects: "${{ needs.build.outputs.hashes }}"
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.0
       with:
           name: Output
-          path: pack/*.nupkg pack/bom.json *.json
+          path: |
+            pack/*.nupkg 
+            pack/bom.json
           if-no-files-found: error
           retention-days: 5
+  
+  provenance:
+    needs: [build]
+    permissions:
+      actions: read
+      id-token: write
+      contents: write
+    uses: slsa-framework/slsa-github-generator/.github/workflows/generator_generic_slsa3.yml@v1.2.0
+    with:
+      base64-subjects: "${{ needs.build.outputs.hashes }}"
+      # Upload provenance to a new release
+      upload-assets: true
