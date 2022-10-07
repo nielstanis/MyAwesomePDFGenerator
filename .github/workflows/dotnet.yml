@@ -46,7 +46,7 @@ jobs:
         # sha256sum generates sha256 hash for all artifacts.
         # base64 -w0 encodes to base64 and outputs on a single line.
         echo "::set-output name=hashes::$(sha256sum pack/MyAwesomePDFGenerator.1.0.0.nupkg | base64 -w0)"
-        ls
+        ls ./pack
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.0
       with:
