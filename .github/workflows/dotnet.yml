@@ -25,7 +25,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build --no-restore -o ./pack
     - name: Test
       run: dotnet test --no-build --verbosity normal
     - name: CycloneDX .NET Generate SBOM
@@ -46,11 +46,12 @@ jobs:
         # sha256sum generates sha256 hash for all artifacts.
         # base64 -w0 encodes to base64 and outputs on a single line.
         echo "::set-output name=hashes::$(sha256sum pack/MyAwesomePDFGenerator.1.0.0.nupkg | base64 -w0)"
+        ls
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.0
       with:
           name: Output
-          path: **/*.nupkg 
+          path: pack/*.nupkg 
           if-no-files-found: error
           retention-days: 5
   
