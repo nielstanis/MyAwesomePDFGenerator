@@ -64,6 +64,3 @@ jobs:
     with:
       base64-subjects: "${{ needs.build.outputs.hashes }}"
       compile-generator: true
-      upload-assets: true
-      #compile-builder: true
-      
