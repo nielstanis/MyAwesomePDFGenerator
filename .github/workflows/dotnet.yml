@@ -25,7 +25,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore -o ./pack
+      run: dotnet build --no-restore -o .
     - name: Test
       run: dotnet test --no-build --verbosity normal
     - name: CycloneDX .NET Generate SBOM
@@ -36,7 +36,7 @@ jobs:
         # The path to a .sln, .csproj, .vbproj, or packages.config file or the path to a directory which will be recursively analyzed for packages.config files
         path: MyAwesomePDFGenerator.csproj
         # Output directory
-        out: ./pack
+        # out: ./pack
         # Produce a JSON BOM instead of XML, set to any value instead of false
         json: true
     - name: Generate hashes
@@ -50,8 +50,9 @@ jobs:
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.0
       with:
-          name: Output
-          path: pack/MyAwesomePDFGenerator.1.0.0.nupkg
+          path: | 
+              MyAwesomePDFGenerator.1.0.0.nupkg
+              bom.json
           if-no-files-found: error
           retention-days: 5
   
