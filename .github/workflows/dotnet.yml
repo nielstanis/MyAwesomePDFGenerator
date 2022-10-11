@@ -35,9 +35,6 @@ jobs:
       with:
         # The path to a .sln, .csproj, .vbproj, or packages.config file or the path to a directory which will be recursively analyzed for packages.config files
         path: MyAwesomePDFGenerator.csproj
-        # Output directory
-        # out: ./pack
-        # Produce a JSON BOM instead of XML, set to any value instead of false
         json: true
     - name: Generate hashes
       shell: bash
@@ -45,13 +42,13 @@ jobs:
       run: |
         # sha256sum generates sha256 hash for all artifacts.
         # base64 -w0 encodes to base64 and outputs on a single line.
-        echo "::set-output name=hashes::$(sha256sum MyAwesomePDFGenerator.1.0.0.nupkg bom.json | base64 -w0)"
+        echo "::set-output name=hashes::$(sha256sum MyAwesomePDFGenerator.1.0.0.nupkg | base64 -w0)"
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.0
       with:
           path: | 
               MyAwesomePDFGenerator.1.0.0.nupkg
-              bom.json
+          name: MyAwesomePDFGenerator
           if-no-files-found: error
           retention-days: 5
   
