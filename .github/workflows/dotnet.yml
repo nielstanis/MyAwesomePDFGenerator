@@ -30,7 +30,7 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
     - name: Install CycloneDX CLI tool
-      run: dotnet tool install CycloneDX 
+      run: dotnet tool install --global CycloneDX
     - name: Run CycloneDX 
       run: dotnet CycloneDX MyAwesomePDFGenerator.csproj -f bom.json -j
     - name: Generate hashes
