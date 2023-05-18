@@ -32,7 +32,7 @@ jobs:
     - name: Install CycloneDX CLI tool
       run: dotnet tool install --global CycloneDX
     - name: Run CycloneDX 
-      run: dotnet CycloneDX --filename bom.json --json MyAwesomePDFGenerator.csproj
+      run:  dotnet cyclonedx -f bom.json -o . -j MyAwesomePDFGenerator.csproj
     - name: Generate hashes
       shell: bash
       id: hash
